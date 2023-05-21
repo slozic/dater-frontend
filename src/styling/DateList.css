@@ -1,0 +1,52 @@
+.date-list-container {
+    padding: 20px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.date-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.date-item {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.date-item:hover {
+    background-color: lightblue;
+    cursor: pointer;
+}
+
+.date-item h2 {
+    margin: 0;
+}
+
+.date-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.add-new-date {
+    display: inline-block;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.2rem;
+    border-radius: 4px;
+}
+
+.add-new-date:hover {
+    background-color: #3e8e41;
+    cursor: pointer;
+}

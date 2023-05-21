@@ -1,0 +1,27 @@
+h1 {
+    color: #2e86de;
+    text-align: center;
+}
+
+p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #2e86de;
+    color: white;
+    font-size: 20px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1c6ea4;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}

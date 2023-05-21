@@ -1,0 +1,21 @@
+.profile-container {
+    padding: 20px;
+}
+
+.profile-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.profile-container p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.profile-container strong {
+    font-weight: bold;
+}
+
+.profile-container p:last-child {
+    margin-bottom: 0;
+}

@@ -1,0 +1,24 @@
+.home-container {
+    padding: 20px;
+}
+
+.home-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.home-link {
+    display: inline-block;
+    margin: 10px;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #333;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.home-link:hover {
+    background-color: #f0f0f0;
+}

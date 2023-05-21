@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: left;
+}
+
+.date-event-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.date-event {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+}
+
+.date-event h2 {
+    margin-top: 0;
+}
+
+.date-event p {
+    margin-bottom: 0;
+}
