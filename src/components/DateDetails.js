@@ -1,19 +1,31 @@
-import React, {useState, useEffect} from "react";
-import {useParams, Link} from "react-router-dom";
-import {fetchJwtToken, fetchOptionsWithJwtToken} from '../common/auth'
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { fetchJwtToken, fetchOptionsWithJwtToken } from '../common/auth'
 import '../styling/DateDetails.css'
 
 function DateDetails() {
     const [dateDetails, setDateDetails] = useState(null);
+    const [image, setImage] = useState(null);
     const [requestStatus, setRequestStatus] = useState(null);
-    const {id} = useParams();
+    const { id } = useParams();
+
+    const fetchImageData = () => {
+        let imageOptions = fetchOptionsWithJwtToken();
+        fetch(`http://localhost:8080/dates/${id}/image?resize=true`, imageOptions)
+            .then(response => response.blob())
+            .then(data => setImage(URL.createObjectURL(data)))
+            .catch(error => console.log(error));
+    };
 
     useEffect(() => {
         let options = fetchOptionsWithJwtToken();
         fetch(`http://localhost:8080/dates/${id}`, options)
             .then((response) => response.json())
-            .then((data) => setDateDetails(data))
-            .catch((error) => console.log(error));
+            .then((data) => {
+                setDateDetails(data);
+                fetchImageData();
+            })
+            .catch(error => console.log(error));
     }, [id]);
 
     const handleJoinRequest = () => {
@@ -23,13 +35,13 @@ function DateDetails() {
                 method: "POST",
                 headers: {"Content-Type": "application/json", "Authorization": fetchJwtToken()},
             })
-            .then((response) => {
+            .then(response => {
                 if (!response.ok) {
                     throw new Error("Failed to send join request.");
                 }
                 setRequestStatus("success");
             })
-            .catch((error) => {
+            .catch(error => {
                 setRequestStatus("error");
                 console.log(error);
             });
@@ -38,7 +50,7 @@ function DateDetails() {
     return (
         <div className="date-details-container">
             <Link to="/dates" className="back-link">Back to Dates</Link>
-            <hr/>
+            <hr />
             {dateDetails ? (
                 <div className="date-details">
                     <h2>Title: {dateDetails.title}</h2>
@@ -46,10 +58,19 @@ function DateDetails() {
                     <p>Location: {dateDetails.location}</p>
                     <p>Creator: {dateDetails.dateOwner}</p>
                     <p>Time: {dateDetails.scheduledTime}</p>
+                    {image && <img src={image} alt="Date Image" className="date-image" />}
                     <p>Join status: {dateDetails.joinStatus}</p>
-                    {dateDetails.joinStatus === "AVAILABLE" ? ( <button onClick={handleJoinRequest}>Request to join</button>) : (<p></p>)}
-                    {requestStatus === "error" && <p className="error-message">Failed to send join request.</p>}
-                    {requestStatus === "success" && <p className="success-message">Join request sent successfully.</p>}
+                    {dateDetails.joinStatus === "AVAILABLE" ? (
+                        <button onClick={handleJoinRequest}>Request to join</button>
+                    ) : (
+                        <p></p>
+                    )}
+                    {requestStatus === "error" && (
+                        <p className="error-message">Failed to send join request.</p>
+                    )}
+                    {requestStatus === "success" && (
+                        <p className="success-message">Join request sent successfully.</p>
+                    )}
                 </div>
             ) : (
                 <p>Loading...</p>

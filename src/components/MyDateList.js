@@ -4,7 +4,6 @@ import { fetchOptionsWithJwtToken } from '../common/auth'
 import '../styling/DateList.css'
 
 function MyDateList() {
-    const [dateList, setDateList] = useState([]);
     const [datesICreated, setDatesICreated] = useState([]);
     const [datesIRequested, setDatesIRequested] = useState([]);
 
@@ -14,7 +13,6 @@ function MyDateList() {
         fetch("http://localhost:8080/dates/user/date", options)
             .then((response) => response.json())
             .then((data) => {
-                setDateList(data);
                 setDatesICreated(data.filter(date => date.dateCreator));
                 setDatesIRequested(data.filter(date => !date.dateCreator));
             })

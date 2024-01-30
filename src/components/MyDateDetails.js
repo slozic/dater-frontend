@@ -6,14 +6,26 @@ import '../styling/DateDetails.css'
 
 function MyDateDetails() {
     const [dateDetails, setDateDetails] = useState(null);
+    const [image, setImage] = useState(null);
     const [attendees, setAttendees] = useState([]);
     const { id } = useParams();
+
+    const fetchImageData = () => {
+        let imageOptions = fetchOptionsWithJwtToken();
+        fetch(`http://localhost:8080/dates/${id}/image?resize=true`, imageOptions)
+            .then(response => response.blob())
+            .then(data => setImage(URL.createObjectURL(data)))
+            .catch(error => console.log(error));
+    };
 
     useEffect(() => {
         let options = fetchOptionsWithJwtToken();
         fetch(`http://localhost:8080/dates/${id}`, options)
             .then((response) => response.json())
-            .then((data) => setDateDetails(data))
+            .then((data) => {
+                setDateDetails(data);
+                fetchImageData();
+            })
             .catch((error) => console.log(error));
 
         fetch(`http://localhost:8080/dates/${id}/attendees`, options)
@@ -50,12 +62,13 @@ function MyDateDetails() {
                     <p>Location: {dateDetails.location}</p>
                     <p>Creator: {dateDetails.dateOwner}</p>
                     <p>Time: {dateDetails.scheduledTime}</p>
+                    {image && <img src={image} alt="Date Image" className="date-image" />}
                 </div>
             ) : (
                 <p>Loading...</p>
             )}
 
-            <h2>Attendees:</h2>
+            <h2>Date join requests:</h2>
             {attendees.length > 0 ? (
                 <ul className="attendees-list">
                     {attendees.map((attendee) => (

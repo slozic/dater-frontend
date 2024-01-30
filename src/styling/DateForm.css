@@ -55,3 +55,21 @@
     cursor: not-allowed;
 }
 
+.dropzone {
+  margin-top: 20px;
+  border: 2px dashed #ccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.dropzone label {
+  font-size: 1.2rem;
+}
+
+/* Style for the selected images */
+.dropzone img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
