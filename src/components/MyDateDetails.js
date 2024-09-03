@@ -60,7 +60,6 @@ function MyDateDetails() {
                     <h2>Title: {dateDetails.title}</h2>
                     <p>Description: {dateDetails.description}</p>
                     <p>Location: {dateDetails.location}</p>
-                    <p>Creator: {dateDetails.dateOwner}</p>
                     <p>Time: {dateDetails.scheduledTime}</p>
                     {image && <img src={image} alt="Date Image" className="date-image" />}
                 </div>
