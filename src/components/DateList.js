@@ -11,7 +11,13 @@ function DateList() {
         let options = fetchOptionsWithJwtToken();
         fetch("http://localhost:8080/dates", options)
             .then((response) => response.json())
-            .then((data) => setDateList(data))
+            .then((data) => {
+                if (data.dateEventData) {
+                    setDateList(data.dateEventData);
+                } else {
+                    console.log("Unexpected response format:", data);
+                }
+            })
             .catch((error) => console.log(error));
     }, []);
 

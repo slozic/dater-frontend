@@ -1,47 +1,58 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { fetchJwtToken, fetchOptionsWithJwtToken } from '../common/auth'
-import '../styling/DateDetails.css'
+import { fetchJwtToken, fetchOptionsWithJwtToken } from '../common/auth';
+import '../styling/DateDetails.css';
 
 function DateDetails() {
     const [dateDetails, setDateDetails] = useState(null);
-    const [image, setImage] = useState(null);
+    const [images, setImages] = useState([]); // Handle multiple images
     const [requestStatus, setRequestStatus] = useState(null);
     const { id } = useParams();
 
-    const fetchImageData = () => {
-        let imageOptions = fetchOptionsWithJwtToken();
-        fetch(`http://localhost:8080/dates/${id}/image?resize=true`, imageOptions)
-            .then(response => response.blob())
-            .then(data => setImage(URL.createObjectURL(data)))
-            .catch(error => console.log(error));
+    // Function to convert Base64 string to data URL
+    const base64ToUrl = (base64String, mimeType = "image/jpeg") => {
+        return `data:${mimeType};base64,${base64String}`;
     };
 
+    // Fetching date details and images from backend
     useEffect(() => {
-        let options = fetchOptionsWithJwtToken();
+        const options = fetchOptionsWithJwtToken();
+
+        // Fetch date details
         fetch(`http://localhost:8080/dates/${id}`, options)
             .then((response) => response.json())
             .then((data) => {
                 setDateDetails(data);
-                fetchImageData();
+
+                // Fetch images associated with the date
+                fetch(`http://localhost:8080/dates/${id}/images`, options)
+                    .then(response => response.json()) // Assuming your API sends back JSON data
+                    .then(data => {
+                        // Assuming `data.dateImageData` is an array of objects with a `image` property containing the Base64 string
+                        const imageUrls = data.dateImageData.map(imgData => base64ToUrl(imgData.image, imgData.mimeType || "image/jpeg"));
+                        setImages(imageUrls); // Set the URLs for images
+                    })
+                    .catch(error => console.log("Error fetching images: ", error));
             })
-            .catch(error => console.log(error));
+            .catch(error => console.log("Error fetching date details: ", error));
     }, [id]);
 
     const handleJoinRequest = () => {
-        let options = fetchOptionsWithJwtToken("POST");
-        fetch(`http://localhost:8080/dates/${id}/attendees`,
-            {
-                method: "POST",
-                headers: {"Content-Type": "application/json", "Authorization": fetchJwtToken()},
-            })
-            .then(response => {
+        const options = fetchOptionsWithJwtToken("POST");
+        fetch(`http://localhost:8080/dates/${id}/attendees`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": fetchJwtToken(),
+            },
+        })
+            .then((response) => {
                 if (!response.ok) {
                     throw new Error("Failed to send join request.");
                 }
                 setRequestStatus("success");
             })
-            .catch(error => {
+            .catch((error) => {
                 setRequestStatus("error");
                 console.log(error);
             });
@@ -58,7 +69,18 @@ function DateDetails() {
                     <p>Location: {dateDetails.location}</p>
                     <p>Creator: {dateDetails.dateOwner}</p>
                     <p>Time: {dateDetails.scheduledTime}</p>
-                    {image && <img src={image} alt="Date Image" className="date-image" />}
+
+                    {/* Render multiple images */}
+                    <div className="date-images">
+                        {images.length > 0 ? (
+                            images.map((imageUrl, index) => (
+                                <img key={index} src={imageUrl} alt={`Date Image ${index + 1}`} className="date-image" />
+                            ))
+                        ) : (
+                            <p>No images available.</p>
+                        )}
+                    </div>
+
                     <p>Join status: {dateDetails.joinStatus}</p>
                     {dateDetails.joinStatus === "AVAILABLE" ? (
                         <button onClick={handleJoinRequest}>Request to join</button>

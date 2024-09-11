@@ -10,11 +10,13 @@ function MyDateList() {
     // Fetch the list of date events on component mount
     useEffect(() => {
         let options = fetchOptionsWithJwtToken();
-        fetch("http://localhost:8080/dates/user/date", options)
+        fetch("http://localhost:8080/dates/user", options)
             .then((response) => response.json())
             .then((data) => {
-                setDatesICreated(data.filter(date => date.dateCreator));
-                setDatesIRequested(data.filter(date => !date.dateCreator));
+                if (data.dateEventData) {
+                    setDatesICreated(data.dateEventData.filter(date => date.dateCreator));
+                    setDatesIRequested(data.dateEventData.filter(date => !date.dateCreator));
+                }
             })
             .catch((error) => console.log(error));
     }, []);
