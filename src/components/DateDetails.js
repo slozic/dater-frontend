@@ -80,19 +80,6 @@ function DateDetails() {
                             <p>No images available.</p>
                         )}
                     </div>
-
-                    <p>Join status: {dateDetails.joinStatus}</p>
-                    {dateDetails.joinStatus === "AVAILABLE" ? (
-                        <button onClick={handleJoinRequest}>Request to join</button>
-                    ) : (
-                        <p></p>
-                    )}
-                    {requestStatus === "error" && (
-                        <p className="error-message">Failed to send join request.</p>
-                    )}
-                    {requestStatus === "success" && (
-                        <p className="success-message">Join request sent successfully.</p>
-                    )}
                 </div>
             ) : (
                 <p>Loading...</p>
