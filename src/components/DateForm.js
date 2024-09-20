@@ -133,7 +133,7 @@ function DateForm() {
                     <div className="form-buttons">
                         {error && <div className="error">{error}</div>}
                         <button type="submit" className="form-button">Submit</button>
-                        <button onClick={() => navigation("/my-dates")} className="form-button">Cancel</button>
+                        <button onClick={() => navigation("/")} className="form-button">Cancel</button>
                     </div>
                 </form>
             ) : (

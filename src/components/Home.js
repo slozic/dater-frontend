@@ -24,7 +24,6 @@ const token = localStorage.getItem("token");
                 <div className="home-links">
                     <Link to="/new-date" className="home-link">Create a new date</Link>
                     <Link to="/dates" className="home-link">Browse dates</Link>
-                    <Link to="/my-dates" className="home-link">My dates</Link>
                     <Link to="/profile" className="home-link">Profile</Link>
                 </div>
             </div>

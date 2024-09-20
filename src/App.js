@@ -7,8 +7,6 @@ import DateEvent from './components/DateEvent';
 import Login from "./components/Login";
 import Registration from "./components/Registration";
 import Profile from "./components/Profile";
-import MyDateList from "./components/MyDateList";
-import MyDateDetails from "./components/MyDateDetails";
 
 function App() {
 
@@ -30,8 +28,6 @@ function App() {
             <Routes>
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/dates" element={<DateList />} />
-                <Route exact path="/my-dates" element={<MyDateList />} />
-                <Route exact path="/my-dates/:id" element={<MyDateDetails />} />
                 <Route exact path="/new-date" element={<DateForm />} />
                 <Route exact path="/dates/:id" element={<DateDetails />} />
                 <Route exact path="/dates/:id/edit" element={<DateForm />} />

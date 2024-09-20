@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchJwtToken, fetchOptionsWithJwtToken } from '../common/auth';
 import '../styling/DateDetails.css';
+import DateAttendeeStatus from './DateAttendeeStatus'; // Import the status component
 
 function DateDetails() {
     const [dateDetails, setDateDetails] = useState(null);
@@ -80,6 +81,9 @@ function DateDetails() {
                             <p>No images available.</p>
                         )}
                     </div>
+
+                    {/* Include the DateAttendeeStatus component */}
+                    <DateAttendeeStatus dateId={id} />
                 </div>
             ) : (
                 <p>Loading...</p>
