@@ -7,6 +7,7 @@ import DateEvent from './components/DateEvent';
 import Login from "./components/Login";
 import Registration from "./components/Registration";
 import Profile from "./components/Profile";
+import AttendeeProfile from "./components/AttendeeProfile";
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
                 <Route exact path="/login" element={<Login />} />
                 <Route exact path="/registration" element={<Registration />} />
                 <Route exact path="/profile" element={<Profile />} />
+                <Route exact path="/attendee-profile" element={<AttendeeProfile />} />
             </Routes>
         </div>
     );

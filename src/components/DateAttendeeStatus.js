@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { fetchOptionsWithJwtToken } from '../common/auth';
 
 function DateAttendeeStatus({ dateId }) {
     const [status, setStatus] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+
+    useEffect(() => {
+        fetchAttendeeStatus();
+    }, []);
 
     // Function to fetch the attendee status
     const fetchAttendeeStatus = () => {
@@ -37,7 +41,7 @@ function DateAttendeeStatus({ dateId }) {
         <div className="attendee-status">
             {loading && <p>Loading status...</p>}
             {error && <p className="error-message">{error}</p>}
-            {status && !loading && <p>Status: {formatStatus(status)}</p>}
+            {status && !loading && <p>Date request status: {formatStatus(status)}</p>}
             {!status && !loading && (
                 <button onClick={fetchAttendeeStatus}>Check Status</button>
             )}
