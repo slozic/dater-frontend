@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styling/Home.css";
+import { isTokenExpired } from '../common/auth';
 
 function Home() {
 
-const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-    if(token === null){
+    if (token === null || isTokenExpired(token)) {
+        // If no token or token is expired, show login and registration links
         return (
             <div className="home-container">
                 <h1>Welcome to the Real Dating App</h1>
@@ -16,8 +18,8 @@ const token = localStorage.getItem("token");
                 </div>
             </div>
         );
-    }
-    else {
+    } else {
+        // If token is valid, show other links
         return (
             <div className="home-container">
                 <h1>Welcome to the Real Dating App</h1>
