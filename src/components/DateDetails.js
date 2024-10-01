@@ -4,11 +4,12 @@ import { fetchJwtToken, fetchOptionsWithJwtToken, parseJwtToken } from '../commo
 import '../styling/DateDetails.css';
 import DateAttendeeStatus from './DateAttendeeStatus'; // Import attendee status
 import DateAttendeeRequests from './DateAttendeeRequests'; // Import attendee requests component
+import DateRequest from './DateRequest'; // Import the DateRequest component
 
 function DateDetails() {
     const [dateDetails, setDateDetails] = useState(null);
     const [images, setImages] = useState([]);
-    const [isOwner, setIsOwner] = useState(false); // Track if user is owner
+    const [isOwner, setIsOwner] = useState(false); // Track if user is the owner
     const [showRequests, setShowRequests] = useState(false); // To show/hide attendee requests
     const { id } = useParams(); // Date ID
     const loggedInUserId = parseJwtToken(fetchJwtToken())?.sub; // Assuming you have a function to parse JWT
@@ -68,12 +69,13 @@ function DateDetails() {
                         )}
                     </div>
 
-                    {/* Render DateAttendeeStatus component */}
-                    <DateAttendeeStatus dateId={id} />
+                    {/* Render DateRequest component to allow users to request to join */}
+                    <DateRequest dateId={id} isDateOwner={isOwner} />
 
                     {/* Only show attendee requests button if the user is the date owner */}
                     {isOwner && (
                         <div>
+                            <p>Click to view requests to join your date</p>
                             <button onClick={handleShowRequests}>
                                 {showRequests ? "Hide Date Requests" : "Show Date Requests"}
                             </button>
