@@ -43,7 +43,7 @@ function DateAttendeeRequests({ dateId }) {
                                 Date Status: {attendee.status.replace('_', ' ')}
                             </p>
                             <p>
-                                <Link to="/attendee-profile">Link to profile</Link>
+                                <Link to={`/public-profile/${attendee.id}`}>Link to profile</Link>
                             </p>
                         </li>
                     ))

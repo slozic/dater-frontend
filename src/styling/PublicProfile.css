@@ -1,0 +1,28 @@
+.public-profile-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.profile-info {
+    margin-bottom: 20px;
+}
+
+.profile-images {
+    display: flex;
+    gap: 10px;
+}
+
+.profile-image-box {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.profile-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure the whole image is visible within the box */
+}
