@@ -1,0 +1,60 @@
+/* DateAttendeeRequests.css */
+
+/* Styling for accepted attendee */
+.accepted-attendee {
+    background-color: #e6ffed;
+    border: 2px solid #4CAF50;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+/* Styling for rejected attendee */
+.rejected-attendee {
+    background-color: #ffe6e6;
+    border: 2px solid #f44336;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.attendee-item {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1rem;
+}
+
+.attendee-actions {
+    margin-top: 0.5rem;
+}
+
+.accept-button,
+.reject-button {
+    padding: 8px 12px;
+    margin-right: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+
+.accept-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.reject-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.accept-button:disabled,
+.reject-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.accept-button:hover:not(:disabled),
+.reject-button:hover:not(:disabled) {
+    opacity: 0.9;
+}

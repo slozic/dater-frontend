@@ -40,7 +40,7 @@ function DateForm() {
                 return response.json(); // Assuming the backend returns the created date with the ID
             })
             .then((data) => {
-                setDateId(data); // Set the newly created date ID
+                setDateId(data.dateEventId); // Set the newly created date ID
                 setDateCreated(true); // Set date created flag
             })
             .catch((error) => {
@@ -70,7 +70,7 @@ function DateForm() {
                     throw new Error("Error uploading images");
                 }
                 alert("Images uploaded successfully");
-                navigation("/my-dates"); // Redirect to "my-dates" after success
+                navigation("/dates"); // Redirect to "my-dates" after success
             })
             .catch((error) => {
                 console.error(error);

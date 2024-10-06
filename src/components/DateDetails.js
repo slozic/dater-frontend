@@ -19,6 +19,20 @@ function DateDetails() {
         return `data:${mimeType};base64,${base64String}`;
     };
 
+    const formatDateTime = (dateString) => {
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false, // Ensure 24-hour clock
+        };
+
+        const date = new Date(dateString); // Assuming `scheduledTime` is an ISO string
+        return new Intl.DateTimeFormat('en-GB', options).format(date);
+    };
+
     // Fetching date details and images from backend
     useEffect(() => {
         const options = fetchOptionsWithJwtToken();
@@ -56,7 +70,7 @@ function DateDetails() {
                     <p>Description: {dateDetails.description}</p>
                     <p>Location: {dateDetails.location}</p>
                     <p>Creator: {dateDetails.dateOwner}</p>
-                    <p>Time: {dateDetails.scheduledTime}</p>
+                    <p>Date: {formatDateTime(dateDetails.scheduledTime)}h</p>
 
                     {/* Render multiple images */}
                     <div className="date-images">
