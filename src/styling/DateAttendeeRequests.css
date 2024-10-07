@@ -58,3 +58,33 @@
 .reject-button:hover:not(:disabled) {
     opacity: 0.9;
 }
+
+ul {
+    list-style-type: none;
+    padding-left: 0; /* Remove default padding */
+}
+
+.date-attendee-requests a {
+    text-decoration: none; /* Remove underline */
+    color: #1a73e8; /* Change text color to blue */
+    background-color: #f1f1f1; /* Light background */
+    padding: 8px 12px; /* Padding for the link */
+    border-radius: 4px; /* Rounded corners */
+    font-weight: 500; /* Slightly bolder font */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.date-attendee-requests a:hover {
+    background-color: #e1e1e1; /* Change background on hover */
+    color: #1a73e8; /* Keep the text color consistent on hover */
+}
+
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Align items vertically */
+    margin: 0 auto;
+    max-width: 80%; /* Optional: Limit max width of the container */
+    padding: 20px;
+}

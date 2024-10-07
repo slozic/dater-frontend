@@ -2,22 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchJwtToken, fetchOptionsWithJwtToken, parseJwtToken } from '../common/auth';
 import '../styling/DateDetails.css';
-import DateAttendeeStatus from './DateAttendeeStatus'; // Import attendee status
 import DateAttendeeRequests from './DateAttendeeRequests'; // Import attendee requests component
 import DateRequest from './DateRequest'; // Import the DateRequest component
+import DateImageUpload from './DateImageUpload'; // Import the DateImageUpload component
 
 function DateDetails() {
     const [dateDetails, setDateDetails] = useState(null);
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useState([]); // Define the `images` state
     const [isOwner, setIsOwner] = useState(false); // Track if user is the owner
     const [showRequests, setShowRequests] = useState(false); // To show/hide attendee requests
     const { id } = useParams(); // Date ID
     const loggedInUserId = parseJwtToken(fetchJwtToken())?.sub; // Assuming you have a function to parse JWT
-
-    // Function to convert Base64 string to data URL
-    const base64ToUrl = (base64String, mimeType = "image/jpeg") => {
-        return `data:${mimeType};base64,${base64String}`;
-    };
 
     const formatDateTime = (dateString) => {
         const options = {
@@ -28,7 +23,6 @@ function DateDetails() {
             minute: '2-digit',
             hour12: false, // Ensure 24-hour clock
         };
-
         const date = new Date(dateString); // Assuming `scheduledTime` is an ISO string
         return new Intl.DateTimeFormat('en-GB', options).format(date);
     };
@@ -48,8 +42,11 @@ function DateDetails() {
                 fetch(`http://localhost:8080/dates/${id}/images`, options)
                     .then(response => response.json())
                     .then(data => {
-                        const imageUrls = data.dateImageData.map(imgData => base64ToUrl(imgData.image, imgData.mimeType || "image/jpeg"));
-                        setImages(imageUrls);
+                        const imageUrls = data.dateImageData.map(imgData => ({
+                            id: imgData.id,
+                            url: `data:${imgData.mimeType};base64,${imgData.image}`,
+                        }));
+                        setImages(imageUrls); // Set the images state with fetched images
                     })
                     .catch(error => console.log("Error fetching images: ", error));
             })
@@ -61,7 +58,7 @@ function DateDetails() {
     };
 
     return (
-        <div className="date-details-container">
+        <div className="date-details-container centered-container">
             <Link to="/dates" className="back-link">Back to Dates</Link>
             <hr />
             {dateDetails ? (
@@ -72,16 +69,8 @@ function DateDetails() {
                     <p>Creator: {dateDetails.dateOwner}</p>
                     <p>Date: {formatDateTime(dateDetails.scheduledTime)}h</p>
 
-                    {/* Render multiple images */}
-                    <div className="date-images">
-                        {images.length > 0 ? (
-                            images.map((imageUrl, index) => (
-                                <img key={index} src={imageUrl} alt={`Date Image ${index + 1}`} className="date-image" />
-                            ))
-                        ) : (
-                            <p>No images available.</p>
-                        )}
-                    </div>
+                    {/* Render the DateImageUpload component and pass the `images` and `dateId` */}
+                    <DateImageUpload dateId={id} initialImages={images} isOwner={isOwner} />
 
                     {/* Render DateRequest component to allow users to request to join */}
                     <DateRequest dateId={id} isDateOwner={isOwner} />

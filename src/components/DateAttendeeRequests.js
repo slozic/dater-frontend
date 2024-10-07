@@ -89,15 +89,14 @@ function DateAttendeeRequests({ dateId }) {
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <div>
-            <h3>Join Requests</h3>
+        <div className="date-attendee-requests">
             <ul>
                 {/* Render the accepted attendee with special styling */}
                 {acceptedAttendee && (
                     <li key={acceptedAttendee.id} className="attendee-item accepted-attendee">
                         <p>
-                            <strong>Accepted Attendee:</strong> {acceptedAttendee.username} <br />
-                            Date Status: {acceptedAttendee.status.replace('_', ' ')}
+                            <strong>Your date for the night:</strong> {acceptedAttendee.username} <br />
+                            {/*Date Status: {acceptedAttendee.status.replace('_', ' ')}*/}
                         </p>
                         <p>
                             <Link to={`/public-profile/${acceptedAttendee.id}`}>View Profile</Link>
@@ -110,8 +109,8 @@ function DateAttendeeRequests({ dateId }) {
                     attendees.map((attendee) => (
                         <li key={attendee.id} className="attendee-item">
                             <p>
-                                User: {attendee.username} <br />
-                                Date Status: {attendee.status.replace('_', ' ')}
+                                User request: {attendee.username} <br />
+                                {/*{attendee.status.replace('_', ' ')}*/}
                             </p>
                             <p>
                                 <Link to={`/public-profile/${attendee.id}`}>View Profile</Link>
@@ -147,8 +146,8 @@ function DateAttendeeRequests({ dateId }) {
                         {rejectedAttendees.map((attendee) => (
                             <li key={attendee.id} className="attendee-item rejected-attendee">
                                 <p>
-                                    User: {attendee.username} <br />
-                                    Date Status: Rejected
+                                    User request: {attendee.username} <br />
+                                    Status: Rejected
                                 </p>
                                 <p>
                                     <Link to={`/public-profile/${attendee.id}`}>View Profile</Link>
