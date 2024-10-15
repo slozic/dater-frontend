@@ -1,0 +1,27 @@
+.delete-button {
+    background-color: light-blue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.confirmation-dialog {
+    margin-top: 10px;
+}
+
+.confirm-button {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 10px;
+}
+
+.cancel-button {
+    background-color: gray;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+}

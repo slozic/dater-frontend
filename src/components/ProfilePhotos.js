@@ -67,7 +67,7 @@ function ProfilePhotos({ userId, onUploadPhoto }) {
                         />
                         {/* Delete button */}
                         <button
-                            className="delete-button"
+                            className="profile-photo-delete-button"
                             onClick={() => handleDeletePhoto(photo.id)}
                         >
                             &times;

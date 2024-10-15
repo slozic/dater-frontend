@@ -94,7 +94,7 @@ function DateImageUpload({ dateId, initialImages, isOwner }) {
                         {/* Show delete button only if the user is the owner */}
                         {isOwner && (
                             <button
-                                className="delete-button"
+                                className="date-image-upload-delete-button"
                                 onClick={() => handleImageDelete(images[i].id)}
                             >
                                 &times;

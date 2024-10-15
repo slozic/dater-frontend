@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchJwtToken, fetchOptionsWithJwtToken, parseJwtToken } from '../common/auth';
 import '../styling/DateDetails.css';
+/*import '../styling/DeleteDateEvent.css';*/
 import DateAttendeeRequests from './DateAttendeeRequests'; // Import attendee requests component
 import DateRequest from './DateRequest'; // Import the DateRequest component
 import DateImageUpload from './DateImageUpload'; // Import the DateImageUpload component
+import DeleteDateEvent from './DeleteDateEvent'; // Import the DeleteDateEvent component
 
 function DateDetails() {
     const [dateDetails, setDateDetails] = useState(null);
@@ -83,6 +85,9 @@ function DateDetails() {
                                 {showRequests ? "Hide Date Requests" : "Show Date Requests"}
                             </button>
                             {showRequests && <DateAttendeeRequests dateId={id} />}
+
+                            {/* Render DeleteDateEvent button for the owner */}
+                            <DeleteDateEvent dateId={id} />
                         </div>
                     )}
                 </div>
