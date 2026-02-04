@@ -56,7 +56,7 @@ function PublicProfile() {
                             user.profileImageData.map((imageData, index) => (
                                 <div key={index} className="profile-image-box">
                                     <img
-                                        src={`data:image/jpeg;base64,${imageData.image}`}
+                                        src={imageData.imageUrl}
                                         alt={`Profile Image ${index + 1}`}
                                         className="profile-image"
                                     />

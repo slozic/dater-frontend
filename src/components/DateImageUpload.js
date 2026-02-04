@@ -33,7 +33,6 @@ function DateImageUpload({ dateId, initialImages, isOwner }) {
 
             if (response.ok) {
                 const data = await response.json();
-                // Assuming response has correct structure for newly uploaded images
                 setImages(data.dateImageData || []);
                 // Reload the page after successful upload
                 window.location.reload(); // Reload the page
@@ -82,7 +81,7 @@ function DateImageUpload({ dateId, initialImages, isOwner }) {
         for (let i = 0; i < 3; i++) {
             if (images[i]) {
                 // If there is an image, show it with delete option
-                const imageSrc = `${images[i].url}`;
+                const imageSrc = images[i].imageUrl;
                 uploadBoxes.push(
                     <div className="image-upload-container" key={images[i].id || i}>
                         <img

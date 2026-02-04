@@ -60,7 +60,7 @@ function ProfilePhotos({ userId, onUploadPhoto }) {
                     <div key={photo.id} className="photo-box">
                         {/* Image display */}
                         <img
-                            src={`data:image/jpeg;base64,${photo.image}`}
+                            src={photo.imageUrl}
                             alt="User profile"
                             className="user-photo"
                             onClick={() => handleOpenModal(photo)} // Click to open in larger modal
@@ -99,7 +99,7 @@ function ProfilePhotos({ userId, onUploadPhoto }) {
                 >
                     <div className="modal-content">
                         <img
-                            src={`data:image/jpeg;base64,${selectedPhoto.image}`}
+                            src={selectedPhoto.imageUrl}
                             alt="Full-size image"
                             className="full-size-image"
                         />

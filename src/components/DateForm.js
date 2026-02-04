@@ -6,6 +6,8 @@ import "../styling/DateForm.css";
 function DateForm() {
     const [title, setTitle] = useState("");
     const [location, setLocation] = useState("");
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
     const [description, setDescription] = useState("");
     const [scheduledTime, setScheduledTime] = useState("");
     const [error, setError] = useState("");
@@ -21,6 +23,8 @@ function DateForm() {
         const formData = {
             title,
             location,
+            latitude: latitude === "" ? null : Number(latitude),
+            longitude: longitude === "" ? null : Number(longitude),
             description,
             scheduledTime,
         };
@@ -109,6 +113,26 @@ function DateForm() {
                             value={location}
                             onChange={(event) => setLocation(event.target.value)}
                             required
+                        />
+                    </div>
+                    <div className="form-element">
+                        <label className="form-label">Latitude:</label>
+                        <input
+                            type="number"
+                            step="0.000001"
+                            className="form-input"
+                            value={latitude}
+                            onChange={(event) => setLatitude(event.target.value)}
+                        />
+                    </div>
+                    <div className="form-element">
+                        <label className="form-label">Longitude:</label>
+                        <input
+                            type="number"
+                            step="0.000001"
+                            className="form-input"
+                            value={longitude}
+                            onChange={(event) => setLongitude(event.target.value)}
                         />
                     </div>
                     <div className="form-element">

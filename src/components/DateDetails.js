@@ -44,11 +44,8 @@ function DateDetails() {
                 fetch(`http://localhost:8080/dates/${id}/images`, options)
                     .then(response => response.json())
                     .then(data => {
-                        const imageUrls = data.dateImageData.map(imgData => ({
-                            id: imgData.id,
-                            url: `data:${imgData.mimeType};base64,${imgData.image}`,
-                        }));
-                        setImages(imageUrls); // Set the images state with fetched images
+                        const imageUrls = data.dateImageData || [];
+                        setImages(imageUrls);
                     })
                     .catch(error => console.log("Error fetching images: ", error));
             })
