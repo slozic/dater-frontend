@@ -8,6 +8,7 @@ function DateForm() {
     const [location, setLocation] = useState("");
     const [latitude, setLatitude] = useState("");
     const [longitude, setLongitude] = useState("");
+    const [locationStatus, setLocationStatus] = useState("");
     const [description, setDescription] = useState("");
     const [scheduledTime, setScheduledTime] = useState("");
     const [error, setError] = useState("");
@@ -116,24 +117,31 @@ function DateForm() {
                         />
                     </div>
                     <div className="form-element">
-                        <label className="form-label">Latitude:</label>
-                        <input
-                            type="number"
-                            step="0.000001"
-                            className="form-input"
-                            value={latitude}
-                            onChange={(event) => setLatitude(event.target.value)}
-                        />
-                    </div>
-                    <div className="form-element">
-                        <label className="form-label">Longitude:</label>
-                        <input
-                            type="number"
-                            step="0.000001"
-                            className="form-input"
-                            value={longitude}
-                            onChange={(event) => setLongitude(event.target.value)}
-                        />
+                        <label className="form-label">Location Pin:</label>
+                        <div className="form-buttons">
+                            <button
+                                type="button"
+                                className="form-button"
+                                onClick={() => {
+                                    setLocationStatus("");
+                                    if (!navigator.geolocation) {
+                                        setLocationStatus("Geolocation is not supported in this browser.");
+                                        return;
+                                    }
+                                    navigator.geolocation.getCurrentPosition(
+                                        (position) => {
+                                            setLatitude(position.coords.latitude.toFixed(6));
+                                            setLongitude(position.coords.longitude.toFixed(6));
+                                            setLocationStatus("Location saved.");
+                                        },
+                                        () => setLocationStatus("Could not retrieve location. Please try again.")
+                                    );
+                                }}
+                            >
+                                Use my location
+                            </button>
+                        </div>
+                        {locationStatus && <div className="status-text">{locationStatus}</div>}
                     </div>
                     <div className="form-element">
                         <label className="form-label">Description:</label>

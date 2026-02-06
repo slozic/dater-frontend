@@ -6,11 +6,21 @@ import '../styling/DateList.css';
 function DateList() {
     const [dateList, setDateList] = useState([]);
     const [filter, setFilter] = useState('all'); // State to manage the filter (all, requested, owned)
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
+    const [radiusKm, setRadiusKm] = useState("10");
+    const [geoError, setGeoError] = useState("");
 
     // Fetch the list of date events based on filter
     const fetchDateList = (selectedFilter) => {
         let options = fetchOptionsWithJwtToken();
-        fetch(`http://localhost:8080/dates?filter=${selectedFilter}`, options)
+        const params = new URLSearchParams({ filter: selectedFilter });
+        if (latitude !== "" && longitude !== "") {
+            params.append("latitude", latitude);
+            params.append("longitude", longitude);
+            params.append("radiusKm", radiusKm || "10");
+        }
+        fetch(`http://localhost:8080/dates?${params.toString()}`, options)
             .then((response) => response.json())
             .then((data) => {
                 if (data.dateEventData) {
@@ -30,6 +40,21 @@ function DateList() {
     // Handle filter change (e.g., user selects a different filter)
     const handleFilterChange = (event) => {
         setFilter(event.target.value);
+    };
+
+    const handleUseMyLocation = () => {
+        setGeoError("");
+        if (!navigator.geolocation) {
+            setGeoError("Geolocation is not supported in this browser.");
+            return;
+        }
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                setLatitude(position.coords.latitude.toFixed(6));
+                setLongitude(position.coords.longitude.toFixed(6));
+            },
+            () => setGeoError("Could not retrieve location. Please enter it manually.")
+        );
     };
 
     return (
@@ -68,6 +93,21 @@ function DateList() {
                     Owned
                 </label>
             </div>
+
+            <div className="filter-options">
+                <label>
+                    Radius (km):
+                    <input
+                        type="number"
+                        min="1"
+                        value={radiusKm}
+                        onChange={(event) => setRadiusKm(event.target.value)}
+                    />
+                </label>
+                <button onClick={handleUseMyLocation}>Use my location</button>
+                <button onClick={() => fetchDateList(filter)}>Apply</button>
+            </div>
+            {geoError && <p className="error">{geoError}</p>}
 
             <ul className="date-list">
                 {dateList.map((date) => (

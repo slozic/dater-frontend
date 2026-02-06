@@ -55,6 +55,12 @@
     cursor: not-allowed;
 }
 
+.status-text {
+    margin-top: 8px;
+    color: #2e7d32;
+    font-size: 0.95rem;
+}
+
 .dropzone {
   margin-top: 20px;
   border: 2px dashed #ccc;
